@@ -1,0 +1,37 @@
+{
+  "replyToken": "<REPLY_TOKEN>",
+  "messages": [
+    {
+      "type": "text",
+      "text": "測試泡泡選單。",
+      "quickReply": {
+        "items": [
+          {
+            "type": "action",
+            "action": {
+              "type": "message",
+              "label": "泡泡1",
+              "text": "泡泡1"
+            }
+          },
+          {
+            "type": "action",
+            "action": {
+              "type": "message",
+              "label": "泡泡2",
+              "text": "泡泡2"
+            }
+          },
+          {
+            "type": "action",
+            "action": {
+              "type": "message",
+              "label": "泡泡3",
+              "text": "泡泡3"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
