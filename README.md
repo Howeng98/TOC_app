@@ -68,12 +68,37 @@ Every time `user` state is triggered to `advance` to another state, it will `go_
 * user
 	* Input: anykey		
 	* Destination: Start
-	Description : The user state will go to the Start state whenever you input
+	* Description: The user state will go to the Start state whenever you input
 	
-*Start
+* Start
 	* Input: 早餐，午餐，晚餐
 	* Destination: breakfast,lunch,dinner
-	Description : Choose one selection for advanced suggestion
+	* Description: Choose one selection for advanced suggestion
+
+* breakfast,lunch,dinner
+	* Input: 試試新口味，最愛
+	* Destination: new_flavor,favorite
+	* Description: user can pick whether you want to choose a new thing for your food or pick from your favorite list
+
+* new_flavor,favorite
+	* Input: 隨機，價位
+	* Destination: random,cost
+	* Description: if you are lazy to choose some food, you can just go ahead random option to let our line-bot give you an answer.Or you can go with cost conditions
+	
+* cost,new_flavor,favorite
+	* Input: 產生美食菜單
+	* Destination: foodlist
+	* Description: ask the line-bot to create a food list with the given conditions
+
+* end
+	* Input: 確定
+	* Destination: Start
+	* Description: If you decided your food to have, click 確定 to go back lobby
+	
+* back
+	* Input: 返回大廳
+	* Destination: Start
+	* Description: go back to lobby immediately
 		
 ## Deploy
 Setting to deploy webhooks on Heroku.
