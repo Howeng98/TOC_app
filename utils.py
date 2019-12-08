@@ -46,15 +46,10 @@ def template_send_message(id):
     )
     line_bot_api.push_message(id,confirm_template_message)
 
-def button_template_send_message(id):
+def button_template_send_message(id,titleText,button):
     line_bot_api = LineBotApi(channel_access_token)
     button_template = ButtonsTemplate(
-        title="您現在想吃什麼呢?",text='以下選擇',actions=[
-            PostbackAction(label="早餐",data="breakfast",text="早餐"),
-            PostbackAction(label="午餐",data="lunch",text="午餐"),
-            PostbackAction(label="晚餐",data="dinner",text="晚餐"),
-            PostbackAction(label="返回大廳",data="go_back",text="返回大廳")            
-        ]
+        title=titleText,text=' ',actions=button        
     )
     template_message = TemplateSendMessage(alt_text="請用手機看此訊息",template=button_template)
     line_bot_api.push_message(id,template_message)

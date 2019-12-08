@@ -14,13 +14,13 @@ load_dotenv()
 ##
 
 machine = TocMachine(
-    states=["user", "start", "breakfast", "lunch", "dinner"],
+    states=["user", "start", "breakfast", "lunch", "dinner", "new_flavor", "favorite", "cost", "foodlist", "random","end"],
     transitions=[
         {
             "trigger": "advance",
             "source": "user",
             "dest": "start",
-            "conditions": "is_going_to_start",
+            #"conditions": "is_going_to_start",
         },        
         {
             "trigger": "advance",
@@ -39,10 +39,52 @@ machine = TocMachine(
             "source": "start",
             "dest": "dinner",
             "conditions": "is_going_to_dinner",
-        },          
+        },
+        {
+            "trigger": "advance",
+            "source": ["breakfast","lunch","dinner"],
+            "dest": "new_flavor",
+            "conditions": "is_going_to_new_flavor",
+        },
+        {
+            "trigger": "advance",
+            "source": ["breakfast","lunch","dinner"],
+            "dest": "favorite",
+            "conditions": "is_going_to_favorite",
+        },
+        {
+            "trigger": "advance",
+            "source": ["favorite","new_flavor"],
+            "dest": "cost",
+            "conditions": "is_going_to_cost",
+        },
+        {
+            "trigger": "advance",
+            "source": ["favorite","new_flavor","cost"],
+            "dest": "foodlist",
+            "conditions": "is_going_to_foodlist",
+        },        
+        {
+            "trigger": "advance",
+            "source": ["new_flavor","favorite"],
+            "dest": "random",
+            "conditions": "is_going_to_random",
+        },
+        {
+            "trigger": "advance",
+            "source": ["random","foodlist"],
+            "dest": "end",
+            "conditions": "is_going_to_end",
+        },
+        {
+            "trigger": "advance",
+            "source": "end",
+            "dest": "start",
+            "conditions": "is_going_to_end",
+        },                        
         {   
             "trigger": "advance",
-            "source": ["breakfast", "lunch", "dinner"],
+            "source": ["user","breakfast", "lunch", "dinner","new_flavor", "favorite", "cost", "foodlist", "random", "end"],
             "dest": "start",
             "conditions": "is_going_to_lobby",
         },        
