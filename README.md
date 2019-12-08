@@ -66,12 +66,15 @@ The initial state is set to `user`.
 Every time `user` state is triggered to `advance` to another state, it will `go_back` to `user` state after the bot replies corresponding message.
 
 * user
-	* Input: "go to state1"
-		* Reply: "I'm entering state1"
-
-	* Input: "go to state2"
-		* Reply: "I'm entering state2"
-
+	* Input: anykey		
+	* Destination: Start
+	Description : The user state will go to the Start state whenever you input
+	
+*Start
+	* Input: 早餐，午餐，晚餐
+	* Destination: breakfast,lunch,dinner
+	Description : Choose one selection for advanced suggestion
+		
 ## Deploy
 Setting to deploy webhooks on Heroku.
 
