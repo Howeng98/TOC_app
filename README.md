@@ -2,14 +2,7 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/dc7fa47fcd809b99d087/maintainability)](https://codeclimate.com/github/NCKU-CCS/TOC-Project-2020/maintainability)
 
-[![Known Vulnerabilities](https://snyk.io/test/github/NCKU-CCS/TOC-Project-2020/badge.svg)](https://snyk.io/test/github/NCKU-CCS/TOC-Project-2020)
-
-
-Template Code for TOC Project 2020
-
 A Line bot based on a finite state machine
-
-More details in the [Slides](https://hackmd.io/@TTW/ToC-2019-Project#) and [FAQ](https://hackmd.io/s/B1Xw7E8kN)
 
 ## Setup
 
@@ -18,6 +11,7 @@ More details in the [Slides](https://hackmd.io/@TTW/ToC-2019-Project#) and [FAQ]
 * Pipenv
 * Facebook Page and App
 * HTTPS Server
+* Firebase
 
 #### Install Dependency
 ```sh
@@ -28,15 +22,13 @@ pipenv --three
 pipenv install
 
 pipenv shell
-```
 
-* pygraphviz (For visualizing Finite State Machine)
-    * [Setup pygraphviz on Ubuntu](http://www.jianshu.com/p/a3da7ecc5303)
-	* [Note: macOS Install error](https://github.com/pygraphviz/pygraphviz/issues/100)
+pip install firebase-admin
+```
 
 
 #### Secret Data
-You should generate a `.env` file to set Environment Variables refer to our `.env.sample`.
+You should generate a `.env` file to set Environment Variables.
 `LINE_CHANNEL_SECRET` and `LINE_CHANNEL_ACCESS_TOKEN` **MUST** be set to proper values.
 Otherwise, you might not be able to run your code.
 
@@ -45,11 +37,6 @@ You can either setup https server or using `ngrok` as a proxy.
 
 #### a. Ngrok installation
 * [ macOS, Windows, Linux](https://ngrok.com/download)
-
-or you can use Homebrew (MAC)
-```sh
-brew cask install ngrok
-```
 
 **`ngrok` would be used in the following instruction**
 
@@ -156,4 +143,8 @@ sudo snap install --classic heroku
 
 Flask Architecture ❤️ [@Sirius207](https://github.com/Sirius207)
 
-[Line line-bot-sdk-python](https://github.com/line/line-bot-sdk-python/tree/master/examples/flask-echo)
+[Line line-bot-sdk-python](https://github.com/line/line-bot-sdk-python)
+
+[FireBase_Tutorial](https://mks.tw/2675/%E3%80%8C%E5%AD%B8%E7%BF%92%E6%97%A5%E8%AA%8C%E3%80%8Dcloud-firestore-%E5%9F%BA%E6%9C%AC%E6%96%B0%E5%A2%9E%E3%80%81%E6%9F%A5%E8%A9%A2%E3%80%81%E5%88%AA%E9%99%A4%E5%88%9D%E9%AB%94%E9%A9%97-python)
+
+
