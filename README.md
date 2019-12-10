@@ -164,7 +164,9 @@ sudo snap install --classic heroku
 
 	refference: https://hackmd.io/@ccw/B1Xw7E8kN?type=view#Q2-如何在-Heroku-使用-pygraphviz
 	
-##APP Picture
+## APP Picture
+	*Initial
+![initial](./img/initial.png)
 
 
 ## Reference
