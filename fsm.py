@@ -5,6 +5,7 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 from random import randrange
 import sys
+wut_url = "https://i.imgur.com/TP0cynx.png"
 decide = ['','',0,'','']
 
 cred = credentials.Certificate('serviceAccount.json')
@@ -16,7 +17,7 @@ class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
         self.machine = GraphMachine(model=self, **machine_configs)   
 
-    #----------------------------State Condition--------------------------------#
+    #---------------------------State Condition--------------------------------#
     def is_going_to_start(self, event):
         text = event.message.text    
         return text.lower() == "go to start"
@@ -55,7 +56,19 @@ class TocMachine(GraphMachine):
 
     def is_going_to_favorite(self, event):
         decide[1] = "最愛"
-        return event.message.text.lower() == "最愛"    
+        return event.message.text.lower() == "最愛"
+
+    def is_going_to_database(self, event):
+        return event.message.text.lower() == "資料庫"
+    
+    def is_going_to_addData(self, event):
+        return event.message.text.lower() == "新增資料"
+
+    def is_going_to_delData(self, event):
+        return event.message.text.lower() == "刪除資料"
+
+    def is_going_to_updData(self, event):
+        return event.message.text.lower() == "更新資料"
 
     def is_going_to_cost(self, event):
         return event.message.text.lower() == "價位"        
@@ -102,11 +115,13 @@ class TocMachine(GraphMachine):
             PostbackAction(label="晚餐",data="dinner",text="晚餐")
         ]
         button_template_send_message(user_id,"你現在要吃什麼",btn)
+        return
 
 
     def on_enter_lobby(self,event):
         reply_token = event.reply_token
         send_text_message(reply_token, "返回大廳")    
+        return
         
 
     def on_enter_breakfast(self, event):
@@ -119,7 +134,7 @@ class TocMachine(GraphMachine):
             PostbackAction(label="返回大廳",data="go_back",text="返回大廳")
         ]
         button_template_send_message(user_id,"對於您的早餐，您要...",btn)
-        
+        return
 
     def on_enter_lunch(self, event):
         print("午餐界面")
@@ -131,7 +146,7 @@ class TocMachine(GraphMachine):
             PostbackAction(label="返回大廳",data="go_back",text="返回大廳")
         ]
         button_template_send_message(user_id,"對於您的午餐，您要...",btn)
-
+        return
 
     def on_enter_dinner(self, event):
         print("晚餐界面")
@@ -143,6 +158,7 @@ class TocMachine(GraphMachine):
             PostbackAction(label="返回大廳",data="go_back",text="返回大廳")
         ]
         button_template_send_message(user_id,"對於您的晚餐，您要...",btn)
+        return
 
     def on_enter_new_flavor(self, event):
         print("試試新口味")
@@ -151,9 +167,10 @@ class TocMachine(GraphMachine):
             PostbackAction(label="價位",data="cost",text="價位"),
             PostbackAction(label="隨機",data="random",text="隨機"),
             PostbackAction(label="美食列表",data="foodlist",text="美食列表"),            
-            PostbackAction(label="返回大廳",data="go_back",text="返回大廳")
+            #PostbackAction(label="返回大廳",data="go_back",text="返回大廳")
         ]
         button_template_send_message(user_id,"對於新口味，您要選擇...",btn)
+        return
         
     def on_enter_favorite(self, event):
         print("最愛")
@@ -162,10 +179,63 @@ class TocMachine(GraphMachine):
             PostbackAction(label="價位",data="cost",text="價位"),
             PostbackAction(label="隨機",data="random",text="隨機"),            
             PostbackAction(label="美食列表",data="foodlist",text="美食列表"),
-            PostbackAction(label="返回大廳",data="go_back",text="返回大廳")
+            PostbackAction(label="資料庫",data="adddata",text="資料庫"),            
+            #PostbackAction(label="返回大廳",data="go_back",text="返回大廳")
         ]
         button_template_send_message(user_id,"對於您的最愛，您要...",btn)
+        return
 
+    def on_enter_database(self, event):
+        print("資料庫")
+        user_id = event.source.user_id
+        btn = [
+            PostbackAction(label="新增資料",data="adddata",text="新增資料"),
+            PostbackAction(label="刪除資料",data="deldata",text="刪除資料"),            
+            PostbackAction(label="更新資料",data="upddata",text="更新資料"),                       
+            PostbackAction(label="返回大廳",data="go_back",text="返回大廳")
+        ]
+        button_template_send_message(user_id,"對於資料庫，您要...",btn)
+        return
+
+    def on_enter_addData(self, event):
+        print("增加新資料")
+        user_id = event.source.user_id        
+        doc_ref = db.collection("Favorite","美食菜單","早餐").document("快樂薯條")               
+        data = {
+            '價格': 90,
+            '名字': "快樂薯條"            
+        }
+        doc_ref.set(data)        
+        btn = [
+            PostbackAction(label="返回大廳",data="go_back",text="返回大廳")
+        ]
+        button_template_send_message(user_id,"資料新增成功!",btn)
+        return
+
+    def on_enter_delData(self, event):
+        print("刪除資料")
+        user_id = event.source.user_id 
+        doc_ref = db.collection("Favorite","美食菜單","早餐").document("快樂薯條")
+        doc_ref.delete()
+        btn = [
+            PostbackAction(label="返回大廳",data="go_back",text="返回大廳")
+        ]
+        button_template_send_message(user_id,"資料刪除成功!",btn)
+        return
+
+    def on_enter_updData(self, event):
+        print("更新資料")
+        user_id = event.source.user_id 
+        doc_ref = db.collection("Favorite","美食菜單","早餐").document("快樂薯條")
+        doc_ref.update({
+            '價格': 999,
+            '名字':"傷心薯條",
+        })
+        btn = [
+            PostbackAction(label="返回大廳",data="go_back",text="返回大廳")
+        ]
+        button_template_send_message(user_id,"資料更新成功!",btn)
+        return
 
     def on_enter_cost(self, event):
         print("價位")
@@ -177,7 +247,7 @@ class TocMachine(GraphMachine):
             PostbackAction(label="返回大廳",data="go_back",text="返回大廳")
         ]
         button_template_send_message(user_id,"對於價格的部分，你打算選擇...",btn)
-        
+        return
 
     def on_enter_foodlist(self, event):
         print("美食列表")
@@ -229,7 +299,7 @@ class TocMachine(GraphMachine):
                     button_template_send_message(user_id,labelName,btn)   
                 elif gotFood == 0:
                     button_template_send_message(user_id,"抱歉！沒有符合條件的美食QQ",exit_btn)
-                    return
+                    returnurl
             if decide[2] == 3:
                 if cost > 150:             
                     gotFood = 1   
@@ -239,7 +309,7 @@ class TocMachine(GraphMachine):
                 elif gotFood == 0:
                     button_template_send_message(user_id,"抱歉！沒有符合條件的美食QQ",exit_btn)
                     return
-        
+        return
 
     def on_enter_random(self, event):
         print("隨機")
@@ -280,11 +350,12 @@ class TocMachine(GraphMachine):
                     labelName = data.to_dict()['名字']
                     labelName = labelName + ":" + str(cost)
                     button_template_send_message(user_id,labelName,btn)
-                    return                                
+                    return
+                return                                
             else:
                 button_template_send_message(user_id,"抱歉!美食名單是空的～",exit_btn)
                 return   
-            
+        return    
         
     def on_enter_end(self, event):
         print("確定")
@@ -292,8 +363,9 @@ class TocMachine(GraphMachine):
         btn = [
             PostbackAction(label="返回大廳",data="ok",text="返回大廳")
            ]
+        send_image_message(user_id,wut_url)                   
         button_template_send_message(user_id,"恭喜！你終於決定好要吃什麼啦！！ =.= ~",btn)
-
+        return
         
     #---------------------------------------------------------------------------#
 

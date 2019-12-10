@@ -12,11 +12,9 @@ def send_text_message(reply_token, text):
 
     return "OK"
 
-
-
-def send_image_url(id, img_url):
+def send_text_push_msg(reply_token,text):
     line_bot_api = LineBotApi(channel_access_token)
-    line_bot_api.push_message(id, ImageSendMessage(original_content_url=img_url, preview_image_url=img_url))
+    line_bot_api.push_message(reply_token, TextSendMessage(text=text))
 
 
 def quick_reply(id):
@@ -54,10 +52,12 @@ def button_template_send_message(id,titleText,button):
     template_message = TemplateSendMessage(alt_text="請用手機看此訊息",template=button_template)
     line_bot_api.push_message(id,template_message)
 
+def send_image_message(id,url):
+    line_bot_api = LineBotApi(channel_access_token)
+    message =  ImageSendMessage(        
+        original_content_url=url,
+        preview_image_url=url
+    )
+    line_bot_api.push_message(id,message)
 
 
-
-"""
-def send_button_message(id, text, buttons):
-    pass
-"""

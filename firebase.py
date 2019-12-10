@@ -41,3 +41,10 @@ db = firestore.client()
 #-----delete data-----
 # doc_ref = db.collection("Foodlist").document("food2")
 # doc_ref.delete()
+
+#-----update data-----
+# doc_ref = db.collection("Favorite","美食菜單","早餐").document("快樂薯條")
+#         doc_ref.update({
+#             '價格': 999,
+#             '名字':"傷心薯條",
+#         })

@@ -14,7 +14,7 @@ load_dotenv()
 ##
 
 machine = TocMachine(
-    states=["user", "start", "breakfast", "lunch", "dinner", "new_flavor", "favorite", "cost", "foodlist", "random","end"],
+    states=["user", "start", "breakfast", "lunch", "dinner", "new_flavor", "favorite", "database", "addData", "delData", "updData", "cost", "foodlist", "random","end"],
     transitions=[
         {
             "trigger": "advance",
@@ -54,6 +54,30 @@ machine = TocMachine(
         },
         {
             "trigger": "advance",
+            "source": "favorite",
+            "dest": "database",
+            "conditions": "is_going_to_database",
+        },
+        {
+            "trigger": "advance",
+            "source": "database",
+            "dest": "addData",
+            "conditions": "is_going_to_addData",
+        },
+        {
+            "trigger": "advance",
+            "source": "database",
+            "dest": "delData",
+            "conditions": "is_going_to_delData",
+        },
+        {
+            "trigger": "advance",
+            "source": "database",
+            "dest": "updData",
+            "conditions": "is_going_to_updData",
+        },
+        {
+            "trigger": "advance",
             "source": ["favorite","new_flavor"],
             "dest": "cost",
             "conditions": "is_going_to_cost",
@@ -84,7 +108,7 @@ machine = TocMachine(
         },                        
         {   
             "trigger": "advance",
-            "source": ["user","breakfast", "lunch", "dinner","new_flavor", "favorite", "cost", "foodlist", "random", "end"],
+            "source": ["breakfast", "lunch", "dinner","new_flavor", "favorite","database", "addData","delData","updData", "cost", "foodlist", "random", "end"],
             "dest": "start",
             "conditions": "is_going_to_lobby",
         },        
