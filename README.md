@@ -166,7 +166,9 @@ sudo snap install --classic heroku
 	
 ## APP Picture
 	Initial
-![initial](./img/initial.jpg)
+	![initial](./img/initial.jpg) ![initial](./img/breakfast.jpg)
+	
+	
 
 
 ## Reference
