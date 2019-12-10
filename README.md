@@ -164,25 +164,43 @@ sudo snap install --classic heroku
 
 	refference: https://hackmd.io/@ccw/B1Xw7E8kN?type=view#Q2-如何在-Heroku-使用-pygraphviz
 	
-## APP Picture
-APP一開始的樣子
+### APP Picture
+##APP一開始的樣子
+
 ![initial](./img/initial.jpg) 
-使用者可以選擇早午晚餐
+
+##使用者可以選擇早午晚餐
+
 ![breakfast](./img/breakfast.jpg)
-接着可以選擇最愛，或者新口味
+
+##接着可以選擇最愛，或者新口味
+
 ![new_flavor](./img/new_flavor.jpg)
-再來可以選擇要直接隨機產生一個結果，或者往價位的條件做篩選，及或者可以前往食物菜單查看資料庫中符合條件所擁有的食物
+
+##再來可以選擇要直接隨機產生一個結果，或者往價位的條件做篩選，及或者可以前往食物菜單查看資料庫中符合條件所擁有的食物
+
 ![random](./img/random.jpg)
+
 ![foodlist](./img/foodlist.jpg)
+
 ![cost](./img/cost.jpg)
-若前往最愛，則可以看到資料庫的選項，使用者可以直接對資料庫中資料做增刪甚至更新的動作
+
+##若前往最愛，則可以看到資料庫的選項，使用者可以直接對資料庫中資料做增刪甚至更新的動作
+
 ![database](./img/database.jpg)
-最後是確認好要吃的食物，還附上圖片meme
+
+##最後是確認好要吃的食物，還附上圖片meme
+
 ![decision](./img/decision.jpg)
-以下是資料庫增加與更新的樣子
+
+##以下是資料庫增加與更新的樣子
+
 ![firebase1](./img/firebase1.png)
+
 ![firebase2](./img/firebase2.png)
+
 ![addData](./img/addData.png)
+
 ![updateData](./img/updateData.png)
 
 
